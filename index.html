@@ -142,13 +142,70 @@
 <p>Download entire datasets or just specific subjects:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/download_dataset.html">download_dataset</a></span><span class="op">(</span><span class="st">"ds000001"</span>, subjects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"01"</span>, <span class="st">"02"</span><span class="op">)</span>,</span>
-<span>                 dest_dir <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
+<span>                 dest_dir <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Retrieving file listing for "ds000001"...</span></span>
+<span><span class="co">#&gt; Filtered to 16 files for 2 subjects.</span></span>
+<span><span class="co">#&gt; ! 2 files already exists, skipping.</span></span>
+<span><span class="co">#&gt; ℹ Use `overwrite = TRUE` to re-download.</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 50786740 bytes...</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 50719855 bytes...---------]  21% ETA: 31s</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 50733582 bytes...---------]  36% ETA: 37s</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 718835 bytes...-----------]  50% ETA: 36s</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 47241449 bytes...---------]  57% ETA: 28s</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 47282515 bytes...---------]  71% ETA: 19s</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 47347339 bytes...====&gt;----]  86% ETA: 10s</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   downloading [==============================] 100% ETA:  0s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 669578 bytes...</span></span></code></pre></div>
 <p>Or pick individual files using dplyr-style filtering:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_files.html">list_files</a></span><span class="op">(</span><span class="st">"ds000001"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">t1w</span> <span class="op">&lt;-</span> <span class="va">all_files</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"T1w"</span>, <span class="va">all_files</span><span class="op">$</span><span class="va">filename</span><span class="op">)</span>, <span class="op">]</span></span>
-<span><span class="fu"><a href="reference/download_files.html">download_files</a></span><span class="op">(</span><span class="va">t1w</span>, dest_dir <span class="op">=</span> <span class="st">"data"</span>, dataset_id <span class="op">=</span> <span class="st">"ds000001"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/download_files.html">download_files</a></span><span class="op">(</span><span class="va">t1w</span>, dest_dir <span class="op">=</span> <span class="st">"data"</span>, dataset_id <span class="op">=</span> <span class="st">"ds000001"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [100%] Downloaded 5798870 bytes...</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5509150 bytes...----------]  12% ETA:  2m</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5416257 bytes...----------]  19% ETA:  2m</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 4888210 bytes...----------]  25% ETA:  1m</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5796440 bytes...----------]  31% ETA:  1m</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5713725 bytes...----------]  38% ETA:  1m</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5481518 bytes...----------]  44% ETA: 42s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5870311 bytes...----------]  50% ETA: 34s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5690462 bytes...----------]  56% ETA: 28s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5913496 bytes...----------]  62% ETA: 23s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5587170 bytes...&gt;---------]  69% ETA: 18s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5540256 bytes...=&gt;--------]  75% ETA: 14s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 1159984 bytes...===&gt;------]  81% ETA: 11s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5276910 bytes...=====&gt;----]  88% ETA:  7s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5736750 bytes...=======&gt;--]  94% ETA:  3s</span></span>
+<span><span class="co">#&gt;   downloading [==============================] 100% ETA:  0s</span></span>
+<span><span class="co">#&gt;  [100%] Downloaded 5663237 bytes...</span></span>
+<span></span>
+<span><span class="va">t1w</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 6</span></span>
+<span><span class="co">#&gt;    id                                                     filename          size directory annexed url  </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                                                  &lt;chr&gt;            &lt;dbl&gt; &lt;lgl&gt;     &lt;lgl&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">#&gt;  1 MD5E-s5798870--37fcfbab3ea0855af34f7a9f7181a9d0.nii.gz sub-16/anat/su… 5.80e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  2 MD5E-s5509150--d888f5de86e1507b1d0778334239af5b.nii.gz sub-15/anat/su… 5.51e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  3 MD5E-s5416257--8de5f730034414bd66e220d0a59340f5.nii.gz sub-14/anat/su… 5.42e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  4 MD5E-s4888210--57de38e31cc257d92d731705be613fb6.nii.gz sub-13/anat/su… 4.89e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  5 MD5E-s5796440--52692e05c5ff7c0c22156f747b38cfc9.nii.gz sub-12/anat/su… 5.80e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  6 MD5E-s5713725--54ed05e79cccdcc8031a1c778376c323.nii.gz sub-11/anat/su… 5.71e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  7 MD5E-s5481518--675ca482ce805a7dd359e52a576a9206.nii.gz sub-10/anat/su… 5.48e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  8 MD5E-s5870311--8219fbcf4903ab5c0e87701cd79de389.nii.gz sub-09/anat/su… 5.87e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt;  9 MD5E-s5690462--ad2c976bbc1b98ca29a74d7919e0c75c.nii.gz sub-08/anat/su… 5.69e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 10 MD5E-s5913496--83488b08ea960360c9d58b86ed3c341c.nii.gz sub-07/anat/su… 5.91e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 11 MD5E-s5587170--8342da511e9cf3a2a813e1155e0df485.nii.gz sub-06/anat/su… 5.59e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 12 MD5E-s5540256--30834a5d3934ce0fd080196e6eb17365.nii.gz sub-05/anat/su… 5.54e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 13 MD5E-s1159984--38f2b46717461f3aea93521271c8541f.nii.gz sub-04/anat/su… 1.16e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 14 MD5E-s5276910--b0d77534529596e609c3b9813a79bda7.nii.gz sub-03/anat/su… 5.28e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 15 MD5E-s5736750--4ba3ad9eaa54aab87d97fa0d60b576ad.nii.gz sub-02/anat/su… 5.74e6 FALSE     TRUE    http…</span></span>
+<span><span class="co">#&gt; 16 MD5E-s5663237--4608ffbd6b78ce3a325eb338fa556589.nii.gz sub-01/anat/su… 5.66e6 FALSE     TRUE    http…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="bids-aware-file-indexing">BIDS-aware file indexing<a class="anchor" aria-label="anchor" href="#bids-aware-file-indexing"></a>
