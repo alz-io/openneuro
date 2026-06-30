@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/opencode-ai/openneuro-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/opencode-ai/openneuro-r/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/alz-io/openneuro/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/alz-io/openneuro/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Search, explore, and download datasets from
@@ -17,7 +17,7 @@ downloads with local caching.
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("opencode-ai/openneuro-r")
+remotes::install_github("alz-io/openneuro")
 ```
 
 ## Usage
