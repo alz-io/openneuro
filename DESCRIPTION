@@ -1,0 +1,33 @@
+Package: openneuro
+Title: Client for the OpenNeuro Database
+Version: 0.99.0
+Authors@R: 
+    person("Dany", "Mukesha", , "danymukesha@gmail.com", 
+            role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0001-9514-751X"))
+Description: Search, explore, and download datasets from OpenNeuro
+    (<https://openneuro.org/>) using its GraphQL API. Provides
+    tidyverse-friendly access to BIDS neuroimaging datasets, including
+    metadata search, file listing, selective download, and local
+    caching. Supports repository-agnostic queries via a 'bids_*'
+    interface for future backends.
+License: MIT + file LICENSE
+URL: https://github.com/alz-io/openneuro
+BugReports: https://github.com/alz-io/openneuro/issues
+Imports:
+    cli,
+    curl,
+    fs,
+    httr2,
+    memoise,
+    progress,
+    rlang,
+    tibble,
+    tools,
+    utils
+Suggests:
+    testthat (>= 3.0.0),
+    withr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0
