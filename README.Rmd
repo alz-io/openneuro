@@ -100,6 +100,25 @@ Download entire datasets or just specific subjects:
 ```{r download, eval = FALSE}
 download_dataset("ds000001", subjects = c("01", "02"),
                  dest_dir = "data")
+#> Retrieving file listing for "ds000001"...
+#> Filtered to 16 files for 2 subjects.
+#> ! 2 files already exists, skipping.
+#> ℹ Use `overwrite = TRUE` to re-download.
+#>  [100%] Downloaded 50786740 bytes...
+#>  [100%] Downloaded 50719855 bytes...---------]  21% ETA: 31s
+#> 
+#>  [100%] Downloaded 50733582 bytes...---------]  36% ETA: 37s
+#> 
+#>  [100%] Downloaded 718835 bytes...-----------]  50% ETA: 36s
+#> 
+#>  [100%] Downloaded 47241449 bytes...---------]  57% ETA: 28s
+#> 
+#>  [100%] Downloaded 47282515 bytes...---------]  71% ETA: 19s
+#> 
+#>  [100%] Downloaded 47347339 bytes...====>----]  86% ETA: 10s
+#> 
+#>   downloading [==============================] 100% ETA:  0s
+#>  [100%] Downloaded 669578 bytes...
 ```
 
 Or pick individual files using dplyr-style filtering:
@@ -109,6 +128,44 @@ all_files <- list_files("ds000001", recursive = TRUE)
 
 t1w <- all_files[grep("T1w", all_files$filename), ]
 download_files(t1w, dest_dir = "data", dataset_id = "ds000001")
+#> [100%] Downloaded 5798870 bytes...
+#>  [100%] Downloaded 5509150 bytes...----------]  12% ETA:  2m
+#>  [100%] Downloaded 5416257 bytes...----------]  19% ETA:  2m
+#>  [100%] Downloaded 4888210 bytes...----------]  25% ETA:  1m
+#>  [100%] Downloaded 5796440 bytes...----------]  31% ETA:  1m
+#>  [100%] Downloaded 5713725 bytes...----------]  38% ETA:  1m
+#>  [100%] Downloaded 5481518 bytes...----------]  44% ETA: 42s
+#>  [100%] Downloaded 5870311 bytes...----------]  50% ETA: 34s
+#>  [100%] Downloaded 5690462 bytes...----------]  56% ETA: 28s
+#>  [100%] Downloaded 5913496 bytes...----------]  62% ETA: 23s
+#>  [100%] Downloaded 5587170 bytes...>---------]  69% ETA: 18s
+#>  [100%] Downloaded 5540256 bytes...=>--------]  75% ETA: 14s
+#>  [100%] Downloaded 1159984 bytes...===>------]  81% ETA: 11s
+#>  [100%] Downloaded 5276910 bytes...=====>----]  88% ETA:  7s
+#>  [100%] Downloaded 5736750 bytes...=======>--]  94% ETA:  3s
+#>   downloading [==============================] 100% ETA:  0s
+#>  [100%] Downloaded 5663237 bytes...
+
+t1w
+#> # A tibble: 16 × 6
+#>    id                                                     filename          size directory annexed url  
+#>    <chr>                                                  <chr>            <dbl> <lgl>     <lgl>   <chr>
+#>  1 MD5E-s5798870--37fcfbab3ea0855af34f7a9f7181a9d0.nii.gz sub-16/anat/su… 5.80e6 FALSE     TRUE    http…
+#>  2 MD5E-s5509150--d888f5de86e1507b1d0778334239af5b.nii.gz sub-15/anat/su… 5.51e6 FALSE     TRUE    http…
+#>  3 MD5E-s5416257--8de5f730034414bd66e220d0a59340f5.nii.gz sub-14/anat/su… 5.42e6 FALSE     TRUE    http…
+#>  4 MD5E-s4888210--57de38e31cc257d92d731705be613fb6.nii.gz sub-13/anat/su… 4.89e6 FALSE     TRUE    http…
+#>  5 MD5E-s5796440--52692e05c5ff7c0c22156f747b38cfc9.nii.gz sub-12/anat/su… 5.80e6 FALSE     TRUE    http…
+#>  6 MD5E-s5713725--54ed05e79cccdcc8031a1c778376c323.nii.gz sub-11/anat/su… 5.71e6 FALSE     TRUE    http…
+#>  7 MD5E-s5481518--675ca482ce805a7dd359e52a576a9206.nii.gz sub-10/anat/su… 5.48e6 FALSE     TRUE    http…
+#>  8 MD5E-s5870311--8219fbcf4903ab5c0e87701cd79de389.nii.gz sub-09/anat/su… 5.87e6 FALSE     TRUE    http…
+#>  9 MD5E-s5690462--ad2c976bbc1b98ca29a74d7919e0c75c.nii.gz sub-08/anat/su… 5.69e6 FALSE     TRUE    http…
+#> 10 MD5E-s5913496--83488b08ea960360c9d58b86ed3c341c.nii.gz sub-07/anat/su… 5.91e6 FALSE     TRUE    http…
+#> 11 MD5E-s5587170--8342da511e9cf3a2a813e1155e0df485.nii.gz sub-06/anat/su… 5.59e6 FALSE     TRUE    http…
+#> 12 MD5E-s5540256--30834a5d3934ce0fd080196e6eb17365.nii.gz sub-05/anat/su… 5.54e6 FALSE     TRUE    http…
+#> 13 MD5E-s1159984--38f2b46717461f3aea93521271c8541f.nii.gz sub-04/anat/su… 1.16e6 FALSE     TRUE    http…
+#> 14 MD5E-s5276910--b0d77534529596e609c3b9813a79bda7.nii.gz sub-03/anat/su… 5.28e6 FALSE     TRUE    http…
+#> 15 MD5E-s5736750--4ba3ad9eaa54aab87d97fa0d60b576ad.nii.gz sub-02/anat/su… 5.74e6 FALSE     TRUE    http…
+#> 16 MD5E-s5663237--4608ffbd6b78ce3a325eb338fa556589.nii.gz sub-01/anat/su… 5.66e6 FALSE     TRUE    http…
 ```
 
 ### BIDS-aware file indexing
