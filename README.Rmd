@@ -1,0 +1,160 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# openneuro
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/opencode-ai/openneuro-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/opencode-ai/openneuro-r/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+Search, explore, and download datasets from [OpenNeuro](https://openneuro.org/)
+using its GraphQL API. Returns tidy tibbles, supports BIDS-aware file indexing,
+and handles selective downloads with local caching.
+
+## Installation
+
+```r
+# install.packages("remotes")
+remotes::install_github("opencode-ai/openneuro-r")
+```
+
+## Usage
+
+### Search for datasets
+
+```{r search, eval = FALSE}
+library(openneuro)
+
+search_datasets(modality = "mri", n = 5)
+#> # A tibble: 5 × 12
+#>   id       name     public version subjects modalities tasks  dataset_name
+#>   <chr>    <chr>    <lgl>  <chr>      <int> <list>     <list> <chr>
+#> 1 ds008064 Individ… TRUE   1.0.0         28 <list [1]> <list> Individuali…
+#> 2 ds008055 Scienti… TRUE   1.0.0        108 <list [1]> <list> Scientific …
+#> 3 ds008039 learnin… TRUE   1.0.0         70 <list [1]> <list> learning-ha…
+#> 4 ds008034 Action … TRUE   1.0.0         34 <list [1]> <list> Action Repr…
+#> 5 ds008018 Personal… TRUE   1.0.0         38 <list [1]> <list> Personality…
+```
+
+Filter by task, species, diagnosis, subject count, or author:
+
+```{r search-advanced, eval = FALSE}
+search_datasets(
+  modality  = "eeg",
+  task      = "stroop",
+  min_subjects = 30
+)
+```
+
+### Get dataset metadata
+
+```{r metadata, eval = FALSE}
+meta <- get_metadata("ds000001")
+meta$title
+#> [1] "Balloon Analog Risk-taking Task"
+meta$n_subjects
+#> [1] 16
+meta$tasks
+#> [1] "balloon analog risk task"
+meta$readme |> substr(1, 200)
+#> [1] "This dataset was obtained from the OpenfMRI project
+#>      (http://www.openfmri.org).\nAccession #: ds000001\n..."
+```
+
+### List files
+
+```{r list-files, eval = FALSE}
+# Top-level directory
+list_files("ds000001")
+#> # A tibble: 23 × 6
+#>   id           filename               size directory annexed url
+#>   <chr>        <chr>                 <dbl> <lgl>     <lgl>   <chr>
+#> 1 bd0bead8ffa… CHANGES                 286 FALSE     FALSE   https://…
+#> 2 b6aff27bdd1… README                 1175 FALSE     FALSE   https://…
+#> 3 17b93025e53… dataset_description…   615 FALSE     FALSE   https://…
+#> 4 436793806e0… participants.tsv       216 FALSE     FALSE   https://…
+#> 5 db72baeb366… sub-01                    0 TRUE      FALSE   NA
+
+# Full recursive listing
+all_files <- list_files("ds000001", recursive = TRUE)
+all_files
+#> # A tibble: 136 × 6
+```
+
+### Download files
+
+Download entire datasets or just specific subjects:
+
+```{r download, eval = FALSE}
+download_dataset("ds000001", subjects = c("01", "02"),
+                 dest_dir = "data")
+```
+
+Or pick individual files using dplyr-style filtering:
+
+```{r download-filtered, eval = FALSE}
+all_files <- list_files("ds000001", recursive = TRUE)
+
+t1w <- all_files[grep("T1w", all_files$filename), ]
+download_files(t1w, dest_dir = "data", dataset_id = "ds000001")
+```
+
+### BIDS-aware file indexing
+
+Parse BIDS entities from file listings:
+
+```{r bids, eval = FALSE}
+idx <- bids_index(all_files)
+idx[idx$subject == "01" & idx$suffix == "bold", ]
+#> # A tibble: 4 × 11
+#>   filename           subject session task   suffix extension
+#>   <chr>              <chr>   <chr>   <chr>  <chr>  <chr>
+#> 1 sub-01/func/sub-0… 01      NA      ballo… bold   .nii.gz
+#> 2 sub-01/func/sub-0… 01      NA      ballo… events .tsv
+#> 3 sub-01/func/sub-0… 01      NA      ballo… bold   .nii.gz
+#> 4 sub-01/func/sub-0… 01      NA      ballo… events .tsv
+```
+
+### Manage the cache
+
+```{r cache, eval = FALSE}
+openneuro_cache(info = TRUE)
+#> OpenNeuro cache directory: /home/user/.cache/R/openneuro
+#> > 0 cached files
+#> > Total size: 0 bytes
+
+openneuro_cache(path = "~/my_openneuro_data")
+```
+
+## API
+
+| Function | What it does |
+|---|---|
+| `search_datasets()` | Query by modality, species, task, diagnosis, subject count, author, etc. |
+| `get_metadata()` | Dataset title, DOI, subjects, tasks, readme, grant info, validation |
+| `list_files()` | Recursive file tree with size, annex status, and download URLs |
+| `download_files()` | Download specific files by URL list |
+| `download_dataset()` | Download full dataset — optionally filter by subject |
+| `bids_index()` | Parse BIDS entities (subject, session, task, run, suffix) from filenames |
+| `openneuro_cache()` | Inspect, set, or clear the local download cache |
+
+## Notes
+
+- The `advancedSearch` GraphQL endpoint is used for search. Public datasets that
+  produce permission errors are silently skipped with a warning.
+- File downloads use the S3 URLs returned by the API. Versioned S3 objects are
+  handled automatically.
+- The local cache directory defaults to `tools::R_user_dir("openneuro", "cache")`
+  and can be overridden with the `OPENNEURO_CACHE_DIR` environment variable.
