@@ -96,17 +96,11 @@ download_dataset("ds000001", subjects = c("01", "02"),
 #> ℹ Use `overwrite = TRUE` to re-download.
 #>  [100%] Downloaded 50786740 bytes...
 #>  [100%] Downloaded 50719855 bytes...---------]  21% ETA: 31s
-#> 
 #>  [100%] Downloaded 50733582 bytes...---------]  36% ETA: 37s
-#> 
 #>  [100%] Downloaded 718835 bytes...-----------]  50% ETA: 36s
-#> 
 #>  [100%] Downloaded 47241449 bytes...---------]  57% ETA: 28s
-#> 
 #>  [100%] Downloaded 47282515 bytes...---------]  71% ETA: 19s
-#> 
 #>  [100%] Downloaded 47347339 bytes...====>----]  86% ETA: 10s
-#> 
 #>   downloading [==============================] 100% ETA:  0s
 #>  [100%] Downloaded 669578 bytes...
 ```
